@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+	{% block content %}
+	<head>		
+
+		<title>ABCd - {{movie.title}}</title>
+		<link rel="icon" href="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu">
+
+		<!-- General Stylesheet-->
+		<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1CljL79yMQL2qZuICdh7w2_S4ebSfYW4C">
+		<!-- Custom Stylesheet-->
+		<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1YdfSimrjfukESVYXm6TTNgdKgqQf85fy">
+		<!-- Icon Stylesheet-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+		<meta charset="UTF-8">
+
+		<meta name=viewport content="width=device-width, initial-scale=1">
+
+	</head>
+	<body onload="tab(1);">
+		<header>
+			<div class="container">
+				<nav class="navbar navbar-default navbar-custom">
+						<div class="navbar-header logo">
+							<a href="/"><img class="logo" src="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu" alt="" title="Homepage" width="90" height="90"></a>
+						</div>
+						<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav flex-child-menu menu-left">
+							</ul>
+							<ul class="nav navbar-nav flex-child-menu menu-right"> 
+								<li><a href="/">Home</a></li>							
+								<li><a href="/movies">Movies</a></li>
+								<li><a href="/about">About</a></li>
+								{% if current_user.is_authenticated %}
+								<li class="btn login"><a href="/logout">Logout</a></li>
+								<li class="btn login"><a href="/profile" style="color: #f11654;">{{current_user.username}} <i class="fa fa-user"></i></a></li>
+								{% else %}
+									<li class="btn login"><a href="/login">LOGIN</a></li>
+								{% endif %}
+							</ul>
+						</div>
+				</nav>
+			</div>
+		</header>
+
+
+		<div class="hero mv-single-hero">
+		</div>
+		<div class="page-single movie-single movie_single">
+			<div class="container">
+				<div class="row ipad-width2">
+					<div class="col-md-4 col-sm-12 col-xs-12">
+						<div class="movie-img sticky-sb">
+							<a href="{{movie.homepage}}">
+							<img src="{{movie.poster}}" onerror="this.src='https://drive.google.com/uc?export=view&id=1D5vTYtMPigeK2il_jWMM_7OwVYd7n-RI';this.onerror='';" alt="">
+							</a>
+							<div class="movie-btn">	
+								<div class="btn-transform transform-vertical red">
+									{% if (current_user.is_authenticated) and (isSavedMovie) %}
+										<div><a href="#" class="item item-1 redbtn"></i>WatchList</a></div>
+										<div><a href="#" class="item item-2 redbtn"></i>Aready In WatchList</a></div>
+									{% elif current_user.is_authenticated %}
+										<div><a href="#" class="item item-1 redbtn"></i> + WatchList</a></div>
+										<div><a href="/movies/addToWatchList/{{movie.id}}" class="item item-2 redbtn"></i>Add to WatchList</a></div>
+									{% else %}
+										<div><a href="#" class="item item-1 redbtn"></i> + WatchList</a></div>
+										<div><a href="/movies/addToWatchList/{{movie.id}}" class="item item-2 redbtn"></i>Add to WatchList</a></div>
+									{% endif %}
+									<!-- <div><a href="" class="item item-1 redbtn" onclick="loginCheck('');"></i> + WatchList</a></div>
+									<div><a href="" class="item item-2 redbtn" onclick="loginCheck('');"></i> Add to WatchList</a></div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 col-sm-12 col-xs-12">
+						<div class="movie-single-ct main-content">
+							<h1 class="bd-hd">{{movie.title}} <span>{{movie.release_year}}</span></h1>
+							<div class="social-btn">
+								<div class="sb-it">
+									<h2>Genres:</h2>
+									<p><a>{{movie.genres}} </a></p>
+								</div>
+								<div class="sb-it">
+									<h3>Release Date: </h3>
+									<p>{{movie.release_date}}</p>
+								</div>
+								<div class="sb-it">
+									<h4>Rating:</h4>
+									<p>{{movie.average_rating}}/10</p>
+								</div>	
+							</div>
+							
+							<div class="movie-rate">
+								<div class="rates">
+
+									<i id="star5" class="ion-ios-star"></i>
+									<h2><span></span></h2><br>
+
+								</div>
+								<div class="rate">
+									<h2>Rate This Movie:</h2>
+
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star"></i>
+									<i class="ion-ios-star-outline"></i>
+
+									<input type="radio" id="star5" name="rate" value="5" />
+									<label for="star5" title="text">
+										5 stars
+									</label>
+
+									<input type="radio" id="star4" name="rate" value="4" />
+									<label for="star4" title="text">
+										4 stars
+									</label>
+
+									<input type="radio" id="star3" name="rate" value="3" />
+									<label for="star3" title="text">
+										3 stars
+									</label>
+
+									<input type="radio" id="star2" name="rate" value="2" />
+									<label for="star2" title="text">
+										2 stars
+									</label>
+
+									<input type="radio" id="star1" name="rate" value="1" />
+									<label for="star1" title="text">
+										1 star
+									</label>
+								</div>
+							</div>
+
+							<div class="movie-tabs">
+								<div class="tabs">
+
+									<ul id="tab-links tabs-mv" class="tab-links tabs-mv">
+										<li class="active"><a href="#" onclick="tab(1);">Overview</a></li>
+										<li><a href="#Cast-Crew" onclick="tab(2);">Cast & Crew</a></li>
+										<li><a href="#Comments" onclick="tab(3);">Comments</a></li>                        
+									</ul>
+
+									<!-- Movie Tab contents -->
+									<div id="tab-content" class="tab-content"">
+
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<style>
+			input {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				box-sizing: border-box;
+				transition: width 0.4s ease-in-out;
+			}
+
+			input:focus {
+				background-color: lightblue;
+			}
+
+			textarea {
+				width: 100%;
+				height: 100px;
+				padding: 12px 20px;
+				box-sizing: border-box;
+				border: 2px solid #ccc;
+				border-radius: 4px;
+				background-color: #f8f8f8;
+				resize: none;
+			}
+
+			textarea:focus {
+				background-color: lightblue;
+			}
+
+			.submitbtn {
+				background-color: #4CAF50; /* Green */
+				border: none;
+				color: white;
+				padding: 16px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 12px;
+				margin: 4px 2px;
+				transition-duration: 0.4s;
+				cursor: pointer;
+			}
+
+			.submitbtn {
+				background-color: white;
+				color: black;
+				border: 2px solid #555555;
+			}
+
+			.submitbtn:focus {
+				background-color: #555555;
+				color: white;	
+			}
+
+/*
+			.split {
+				position:absolute;
+				overflow-x: hidden;
+				padding-top: 20px;
+				margin: 20px;
+			}
+
+
+			.left {
+				width: 30%;
+				left: 0;
+				background-color: black;
+			}
+
+			.right {
+				width: 70%;
+				right: 0;
+				background-color: white;
+				border-radius: 4px;
+				border-bottom: 13px;
+			}
+
+			.centered {
+				position:relative;
+
+				left: 50%;
+				transform: translate(-50%, -50%);
+				text-align: center;
+			}
+*/
+
+		.split {
+			height: auto;
+			padding: 10px;
+			border-radius: 4px;
+			margin-bottom: 5px;
+			z-index: 1010101010;
+		}
+
+		.left {
+			position: relative;
+			width: 25%;
+			float: left;
+			background-color: gray;
+		}
+
+		.right {
+			position: relative;
+			width: 75%;
+			float: left;
+			background-color: white;
+		}
+
+		.centered {
+				position:relative;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				text-align: center;
+			}
+
+		</style>
+		<!-- <script src="https://drive.google.com/uc?export=view&id=1Xbfszi_aD6QgeTd248cBkE8EbbVH4b-W"></script> -->
+		<script>
+
+			function loginCheck(user){
+				console.log("Check if user is logged in");
+				console.log(user)
+			}
+
+			function tab(tab) {
+				
+				let tab_links = "";
+				let tab_content = "";
+				if(tab == 1){ //Overview
+					tab_links += "<li class=\"active\"><a href=\"#\" onclick=\"tab(1);\">Overview</a></li>";
+					tab_links += "<li><a href=\"#Cast-Crew\" onclick=\"tab(2);\">Cast & Crew</a></li>";
+					tab_links += "<li><a href=\"#Comments\" onclick=\"tab(3);\">Comments</a></li>";
+
+					tab_content += "</br><h2>";
+					tab_content += "{{movie.overview}}";
+					tab_content += "</h2>"
+					tab_content += "</br><br>";
+					tab_content += "<h3>Language: {{movie.lang}}<h3>";
+				} 
+				else if (tab == 2){ //Cast & Crew
+					tab_links += "<li><a href=\"#\" onclick=\"tab(1);\">Overview</a></li>";
+					tab_links += "<li class=\"active\"><a href=\"#\" onclick=\"tab(2);\">Cast & Crew</a></li>";
+					tab_links += "<li><a href=\"#Comments\" onclick=\"tab(3);\">Comments</a></li>";
+
+					tab_content += "<br><h1>Cast</h1><br>";
+					tab_content += "<h3>";
+					tab_content += "{% for member in movie.cast %}";
+					tab_content += "{{member.name}} | {{member.character}} </br>";
+					tab_content += "{% endfor %}";
+				 	tab_content += "</h3>";
+
+					tab_content += "<br><h1>Crew</h1><br>";
+					tab_content += "<h3>";
+					tab_content += "{% for member in movie.crew %}";
+					tab_content += "{{member.name}} | {{member.job}} </br>"
+					tab_content += "{% endfor %}";
+				 	tab_content += "</h3>";
+				}
+				else if (tab == 3){ //Comments
+					tab_links += "<li><a href=\"#\" onclick=\"tab(1);\">Overview</a></li>";
+					tab_links += "<li><a href=\"#Cast-Crew\" onclick=\"tab(2);\">Cast & Crew</a></li>";
+					tab_links += "<li class=\"active\"><a href=\"#Comments\" onclick=\"tab(3);\">Comments</a></li>";
+
+					//Comment List
+					tab_content += "<div>"
+					tab_content += "<ul id=\"commentList\" class=\"collection with-header\">"
+					tab_content += "{% for comment in movie.comments %}"
+					tab_content += "</br><li class=\"collection-item\">"
+					
+					tab_content += "<div class=\"split left\">"
+					tab_content += "<div class=\"centered\">"
+					tab_content += "<h3>{{comment.username}}</h3>"
+					tab_content += "</div>"
+					tab_content += "</div>"
+
+					tab_content += "<div class=\"split right\">"
+					tab_content += "<div class=\"centered\">"
+					tab_content += "<h3>{{comment.text}}</h3>"
+					tab_content += "</div>"
+					tab_content += "</div>"
+						
+					tab_content += "</li></br>"
+					tab_content += "{% endfor %}"
+					tab_content += "</ul>"
+					tab_content += "</div>";
+
+					tab_content += "</br></br></br>"
+					tab_content += "</br></br></br>"
+
+
+					//Comment Input
+					tab_content += "<h1>Leave a comment</h1>"
+					tab_content += "<div class=\"row\">";
+					tab_content += "</br>"
+					tab_content += "<form class=\"col s12\" action=\"{{movie.id}}/comments\" method=\"POST\">"
+					tab_content += "<div class=\"row\">"
+					tab_content += "<input value=\"{{movie.id}}\" name=\"movie_id\" type=\"hidden\">"
+					tab_content += "<div class=\"input-field col s12\">"
+					tab_content += "<label for=\"first_name\">Username</label>"
+					tab_content += "<input placeholder=\"Placeholder\" value=\"Anonymous\" name=\"username\" type=\"text\" class=\"validate\" minlength=\"3\" maxlength=\"15\" required>"
+					tab_content += "</div>"
+					tab_content += "</br>"
+					tab_content += "<div class=\"input-field col s12\">"
+					tab_content += "<label for=\"textarea1\">Comment</label>"
+					tab_content += "<textarea name=\"text\" class=\"materialize-textarea\" required></textarea>"
+					tab_content += "</div>"
+					tab_content += "</br>"
+					tab_content += "<div class=\"input-field col s12\">"
+					tab_content += "<button class=\"submitbtn\" type=\"submit\">Submit</button>"
+					tab_content += "</div>"
+					tab_content += ""
+				}
+				document.getElementById("tab-links tabs-mv").innerHTML = tab_links;
+				document.getElementById("tab-content").innerHTML = tab_content;
+			}	
+		</script>
+		</br></br></br>
+	</body>
+	{% endblock %}
+</html>

@@ -1,0 +1,89 @@
+<DOCTYPE! html>
+<html>
+	<head>
+		<title>ABCd - About Us</title>
+		<link rel="icon" href="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu">
+	
+			<!-- General Stylesheet-->
+			<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1CljL79yMQL2qZuICdh7w2_S4ebSfYW4C">
+			<!-- Custom Stylesheet-->
+			<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=16PCiYXfSTUbLQIvZj0A1uWeqqFkSoE2N">
+			<!-- Icon Stylesheet-->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	 
+		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+		<meta charset="utf-8">
+	
+		<meta name=viewport content="width=device-width, initial-scale=1">
+	
+	</head>
+
+	<body>
+
+		<header>
+			<div class="container">
+				<nav class="navbar navbar-default navbar-custom">
+						<div class="navbar-header logo">
+							<a href="/"><img class="logo" src="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu" alt="" title="Homepage" width="90" height="90"></a>
+						</div>
+						<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav flex-child-menu menu-left">
+							</ul>
+							<ul class="nav navbar-nav flex-child-menu menu-right"> 
+								<li><a href="/">Home</a></li>							
+								<li><a href="/movies">Movies</a></li>
+								<li><a href="/about">About</a></li>
+								{% if current_user.is_authenticated %}
+								<li class="btn login"><a href="/logout">Logout</a></li>
+								<li class="btn login"><a href="/profile" style="color: #f11654;">{{current_user.username}} <i class="fa fa-user"></i></a></li>
+								{% else %}
+												<li class="btn login"><a href="/login">LOGIN</a></li>
+								{% endif %}
+							</ul>
+						</div>
+				</nav>
+			</div>
+		</header>
+		
+		<div class="hero mv-single-hero"> </div>
+
+		<div id = "main">
+			<h1 id = "heading">About Page</h1>
+			<h2 class = "subHeading">Creators:</23>
+		
+			<ul>
+				<li>Shivam Persad(816016854)</li>
+				<li>Brandon Noray(816018360)</li>
+				<li>Sameir Ali(816022840)</li>
+				<li>Timothy Sookram(816021689)</li> 
+			</ul>
+	
+			<h2 class = "subHeading">Application Title:</h2>
+			<p>This application was inspired by IMDb as such, the group settled on the acronym ABCD as the title and logo. <br>
+				ABCD stands for Application Based Cinematography Database.  </p>
+
+			<h2 class  = "subHeading">Implemented Features:</h2>
+			<ul>
+				<li> Register & Login functionality </li>
+				<li> Can rate movies from a scale of 1 to 5 stars </li>
+				<li> Allows users to leave comments </li>
+				<li> Functional and logical navigation bar </li>
+				<li> Information on all movies provided</li>
+				<li> Clicking on a movies poster, redirects to the movie's website </li>
+			</ul>
+		</div>
+
+		<div class="page-single movie-single movie_single"></div>
+		</br></br></br>
+		</br></br></br>
+		</br></br></br>
+
+		<div id = "lastPiece">
+			<h2 class = "subHeading">Logos and Posters:</h2>
+			<p>The poster was inspired by the mouse Pokemon Pikachu. The poster and logo shown below was developed by Shivam Persad:</p>
+			<img src = "https://i.imgur.com/2qDRSrv.png" height = 400 width = 400 alt = "logo"></img>
+			<img src = "https://i.imgur.com/DykmKYk.jpg" height = 400 width = 300 alt = "poster"></img>
+		</div>
+	</br></br></br>
+	</body>
+</html>

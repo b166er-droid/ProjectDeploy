@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<title>ABCd - SignUp</title>
+		<link rel="icon" href="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu">
+
+			<!-- General Stylesheet-->
+			<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1CljL79yMQL2qZuICdh7w2_S4ebSfYW4C">
+			<!-- Custom Stylesheet-->
+			<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1Gm2trxdTrJIazEcT7EtTIRsB4anMpSsk">
+			<!-- Icon Stylesheet-->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	
+		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+		<meta charset="utf-8">
+
+		<meta name=viewport content="width=device-width, initial-scale=1">
+
+	</head>
+
+	{% if invalid %}
+	<body onload = "invalidCred()">
+	{% else %}
+	<body>
+	{% endif %}
+
+	{% if same %}
+	<body onload = "sameUser()">
+	{% else %}
+	<body>
+	{% endif %}
+
+		<header>
+			<div class="container">
+				<nav class="navbar navbar-default navbar-custom">
+					<div class="navbar-header logo">
+						<a href="/"><img class="logo" src="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu" alt="" title="Homepage" width="90" height="90"></a>
+					</div>
+					<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav flex-child-menu menu-left">
+						</ul>
+						<ul class="nav navbar-nav flex-child-menu menu-right"> 
+							<li><a href="/">Home</a></li>							
+							<li><a href="/movies">Movies</a></li>
+							<li><a href="/about">About</a></li>
+							{% if current_user.is_authenticated %}
+							<li class="btn login"><a href="/logout">Logout</a></li>
+							<li class="btn login"><a href="/profile" style="color: #f11654;">{{current_user.username}} <i class="fa fa-user"></i></a></li>
+							{% else %}
+											<li class="btn login"><a href="/login">LOGIN</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<div class="hero mv-single-hero"> </div>
+		<div class="page-single movie-single movie_single"></div>
+		
+		<div class = "login-form">
+			<div class = "form">
+			<h1 id = "sign-up">Sign Up</h1>
+			<form id="myForm" class="col s12 m8 offset-m2" method="POST" action="/signup">
+				{{ form.csrf_token }}
+
+			
+					<div class="form-input-material"> 
+					<div>
+					{{ form.username(size=20, class="validate") }}
+					{{ form.username.label }}
+					</div>
+
+					<div class="form-input-material">
+					{{ form.password(size=20, class="validate") }}
+					{{ form.password.label }}
+					</div>
+
+					<div class="form-input-material">
+					{{ form.confirm(size=20, class="validate") }}
+					{{ form.confirm.label }}
+					</div>
+					<br>
+					<div id = ".btn">
+					{{form.submit}}
+					</div> 
+					<br>
+					<div>
+						<h3>Already a User? <a href="/login">Login In</a></h3>
+					</div> 
+			</form>
+			</div>
+		</div>
+		
+		<script>
+			function invalidCred(){
+				alert("Invalid credientals, please re-enter credientals");
+			}
+			
+			function sameUser(){
+				alert("Please enter a different username.");
+			}
+		</script>
+
+	</body>
+
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	{% block content %}
+  <head>
+		<title>ABCd - Movies</title>
+		<link rel="icon" href="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu">
+
+		<!-- General Stylesheet-->
+		<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1CljL79yMQL2qZuICdh7w2_S4ebSfYW4C">
+		<!-- Custom Stylesheet-->
+		<link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1z_arZqMO64v4_NZYu91VM3atgvzIAIK7">
+    <!-- Icon Stylesheet-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width">
+
+  </head>
+
+  <body>
+		<header>
+			<div class="container">
+				<nav class="navbar navbar-default navbar-custom">
+						<div class="navbar-header logo">
+							<a href="/"><img class="logo" src="https://drive.google.com/uc?export=view&id=1R4TcYBCc0HC_--lkFe_VPbRnGmb1TMDu" alt="" title="Homepage" width="90" height="90"></a>
+						</div>
+						<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav flex-child-menu menu-left">
+							</ul>
+							<ul class="nav navbar-nav flex-child-menu menu-right"> 
+								<li><a href="/">Home</a></li>							
+								<li><a href="/movies">Movies</a></li>
+								<li><a href="/about">About</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="btn login"><a href="/logout">Logout</a></li>
+                <li class="btn login"><a href="/profile" style="color: #f11654;">{{current_user.username}} <i class="fa fa-user"></i></a></li>
+                {% else %}
+								<li class="btn login"><a href="/login">LOGIN</a></li>
+                {% endif %}
+							</ul>
+						</div>
+				</nav>
+			</div>
+		</header>
+
+
+		<div class="hero mv-single-hero"> </div>
+		<div class="page-single movie-single movie_single"></div>
+
+    <div class = "gradient-list">
+      <ul class="gradient-list">
+        {% for movie in movieList %}
+        <li>
+          <a href="movies/{{movie.id}}" style="list-style-position: inside;">
+            <img class="gallery-img" 
+              src="{{movie.poster}}"
+              onerror="this.src='https://drive.google.com/uc?export=view&id=1D5vTYtMPigeK2il_jWMM_7OwVYd7n-RI';this.onerror='';"
+              alt="symbol image"
+              style="list-style-position: inside;"
+              title="{{movie.title}}">
+          </a>
+          
+          <a href="movies/{{movie.id}}">
+            <h1 style="text-align: center;">{{movie.title}}</h1>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    </br></br></br>
+    <center>
+      <a href="movies/page/{{i}}" class="previous round">&#8249;</a>
+      <a href="movies/page/{{i}}" class="next round">&#8250;</a>
+    </center>
+    </br></br></br>
+  </body>
+  {% endblock %}
+</html>
